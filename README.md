@@ -26,7 +26,7 @@ you specify the port in WEBSOCKET_PORT
 
 Just add a Listener to server object. You have 3 callbacks that will notify you on client connection change and arrival of client messages
 
-``server.addServerEventListener(new IClientEventListener() {
+``server.addServerEventListener(new IClientEventListener() {``
 			``@Override
 			public void onMessageReceivedFromClient(IWebsocketClient client,
 					String message) {
