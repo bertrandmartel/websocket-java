@@ -6,6 +6,8 @@ http://akinaru.github.io/websocket-java/
 
 Websocket Client & Server implementation
 
+You will find source in ./libwebsocket folder
+
 * Very easy to use
 * A sample is provided to launch a Websocket server and test with a Javascript Client in exemples/js folder
 
@@ -13,7 +15,7 @@ Websocket Client & Server implementation
 
 <b>How to launch Websocket Server ?</b>
 
-``WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT);``
+``WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT);``<br/>
 ``server.start();``
 
 you specify the port in WEBSOCKET_PORT
@@ -24,9 +26,9 @@ you specify the port in WEBSOCKET_PORT
 
 Just add a Listener to server object. You have 3 callbacks that will notify you on client connection change and arrival of client messages
 
-``server.addServerEventListener(new IClientEventListener() {
+``server.addServerEventListener(new IClientEventListener() {``
 			
-			@Override
+			``@Override
 			public void onMessageReceivedFromClient(IWebsocketClient client,
 					String message) {
 				//all your message received from websocket client will be here
