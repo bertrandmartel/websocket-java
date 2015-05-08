@@ -60,14 +60,14 @@ public class LaunchServer {
 			public void onMessageReceivedFromClient(IWebsocketClient client,
 					String message) {
 				// all your message received from websocket client will be here
-				System.out.println("message received in main : " + message);
+				System.out.println("message received : " + message);
 			}
 
 			@Override
 			public void onClientConnection(IWebsocketClient client) {
 				// when a websocket client connect. This will be called (you can
 				// store client object)
-				System.out.println("Websocket client has connected in main");
+				System.out.println("Websocket client has connected");
 
 				client.sendMessage("Hello,I'm a websocket server");
 
@@ -78,7 +78,7 @@ public class LaunchServer {
 			public void onClientClose(IWebsocketClient client) {
 				// when a websocket client connection close. This will be called
 				// (you can dismiss client object)
-				System.out.println("Websocket client has disconnected in main");
+				System.out.println("Websocket client has disconnected");
 			}
 		});
 

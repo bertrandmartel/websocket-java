@@ -79,6 +79,10 @@ This exemple is launched from /release folder
 
 => You have now a complete websocket chat between java server <-> javascript client in websocket 
 
+![alt tag](https://raw.github.com/akinaru/websocket-java/master/exemples/clientSide.png)
+
+
+![alt tag](https://raw.github.com/akinaru/websocket-java/master/exemples/serverSide.png)
 <hr/>
 
 * Project is JRE 1.7 compliant
