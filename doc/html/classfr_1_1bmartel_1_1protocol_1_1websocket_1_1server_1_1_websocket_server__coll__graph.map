@@ -1,0 +1,4 @@
+<map id="fr.bmartel.protocol.websocket.server.WebsocketServer" name="fr.bmartel.protocol.websocket.server.WebsocketServer">
+<area shape="rect" id="node2" href="$interfacefr_1_1bmartel_1_1protocol_1_1websocket_1_1server_1_1_i_websocket_server.html" title="fr.bmartel.protocol.websocket.server.\lIWebsocketServer" alt="" coords="12,5,249,51"/>
+<area shape="rect" id="node4" href="$interfacefr_1_1bmartel_1_1protocol_1_1websocket_1_1listeners_1_1_i_client_event_listener.html" title="fr.bmartel.protocol.websocket.listeners.\lIClientEventListener" alt="" coords="5,74,256,121"/>
+</map>
