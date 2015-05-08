@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>websocket-java by akinaru</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">websocket-java</h1>
+      <h2 class="project-tagline">Websocket client / server Java implementation</h2>
+      <a href="https://github.com/akinaru/websocket-java" class="btn">View on GitHub</a>
+      <a href="https://github.com/akinaru/websocket-java/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/akinaru/websocket-java/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="websocket-client--server-implementation-in-java" class="anchor" href="#websocket-client--server-implementation-in-java" aria-hidden="true"><span class="octicon octicon-link"></span></a>Websocket Client / Server implementation in Java</h1>
+
+<p><a href="http://akinaru.github.io/websocket-java/">http://akinaru.github.io/websocket-java/</a></p>
+
+<p><i>Last update 09/05/2015</i></p>
+
+<p>Websocket Client &amp; Server implementation</p>
+
+<p>You will find source in ./libwebsocket folder</p>
+
+<ul>
+<li>Very easy to use</li>
+<li>A sample is provided to launch a Websocket server and test with a Javascript Client in exemples/js folder</li>
+</ul>
+
+<hr>
+
+<p><b>How to launch Websocket Server ?</b></p>
+
+<p><code>WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT);</code><br>
+<code>server.start();</code></p>
+
+<p>you specify the port in WEBSOCKET_PORT</p>
+
+<hr>
+
+<p><b>How to monitor my clients connected to server ?</b></p>
+
+<p>Just add a Listener to server object. You have 3 callbacks that will notify you on client connection change and arrival of client messages</p>
+
+<p><code>server.addServerEventListener(new IClientEventListener() {</code></p>
+
+<pre><code>        ``@Override
+        public void onMessageReceivedFromClient(IWebsocketClient client,
+                String message) {
+            //all your message received from websocket client will be here
+            System.out.println("message received : " + message);
+        }
+
+        @Override
+        public void onClientConnection(IWebsocketClient client) {
+            // when a websocket client connect. This will be called (you can store client object)
+            System.out.println("Websocket client has connected");
+
+            client.sendMessage("Hello,I'm a websocket server");
+
+            //client.close(); // this would close the client connection
+        }
+
+        @Override
+        public void onClientClose(IWebsocketClient client) {
+            // when a websocket client connection close. This will be called (you can dismiss client object)
+            System.out.println("Websocket client has disconnected");
+        }
+    });``
+</code></pre>
+
+<hr>
+
+<p><b>How to close my websocket server ?</b></p>
+
+<p><code>server.closeServer();</code></p>
+
+<hr>
+
+<p><b>COMMAND LINE SYNTAX</b> </p>
+
+<p>The following will open a websocket on port 4242 (default port value for my exemple)</p>
+
+<p><code>java -cp ../libs/commons-codec-1.9.jar:../libs/http-endec-1.0.jar:wlandecoder-1.0.jar fr.bmartel.websocket.LaunchServer</code></p>
+
+<p>You can change port number by specifying yours</p>
+
+<p><code>java -cp ../libs/commons-codec-1.9.jar:../libs/http-endec-1.0.jar:wlandecoder-1.0.jar fr.bmartel.websocket.LaunchServer 4343</code></p>
+
+<p>This exemple is launched from /release folder</p>
+
+<hr>
+
+<p><b>Exemple with Javascript Client</b></p>
+
+<ul>
+<li>Launch the websocket server on port 4242</li>
+<li>Open the javascript client page in ./exemples/js/ folder</li>
+</ul>
+
+<p>=&gt; You have now a complete websocket chat between java server &lt;-&gt; javascript client in websocket </p>
+
+<p><img src="https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/clientSide.png" alt="alt tag"></p>
+
+<p><img src="https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/serverSide.png" alt="alt tag"></p>
+
+<hr>
+
+<ul>
+<li>Project is JRE 1.7 compliant</li>
+<li>You can build it with ant =&gt; build.xml</li>
+<li>Development on Eclipse </li>
+<li>Specification from <a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a>
+</li>
+</ul>
+
+<p>Soon : an exemple using this lib as websocket client communicating with a cpp server</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/akinaru/websocket-java">websocket-java</a> is maintained by <a href="https://github.com/akinaru">akinaru</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-62569105-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
+
