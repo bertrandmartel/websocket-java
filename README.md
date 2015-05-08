@@ -81,10 +81,10 @@ This exemple is launched from /release folder
 
 => You have now a complete websocket chat between java server <-> javascript client in websocket 
 
-![alt tag](https://raw.github.com/akinaru/websocket-java/master/exemples/images_readme/clientSide.png)
+![alt tag](https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/clientSide.png)
 
 
-![alt tag](https://raw.github.com/akinaru/websocket-java/master/exemples/images_readme/serverSide.png)
+![alt tag](https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/serverSide.png)
 <hr/>
 
 * Project is JRE 1.7 compliant
