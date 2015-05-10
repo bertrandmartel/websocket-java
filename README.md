@@ -4,7 +4,7 @@ http://akinaru.github.io/websocket-java/
 
 <i>Last update 09/05/2015</i>
 
-Websocket Client & Server implementation
+Websocket Server implementation
 
 You will find source in ./libwebsocket folder
 
@@ -93,3 +93,4 @@ This exemple is launched from /release folder
 * Specification from https://tools.ietf.org/html/rfc6455
 
 Soon : an exemple using this lib as websocket client communicating with a cpp server
+Soon : websocket client exemple
