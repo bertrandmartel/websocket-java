@@ -92,5 +92,5 @@ This exemple is launched from /release folder
 * Development on Eclipse 
 * Specification from https://tools.ietf.org/html/rfc6455
 
-Soon : an exemple using this lib as websocket client communicating with a cpp server
+Soon : an exemple using this lib as websocket client communicating with a cpp server<br/>
 Soon : websocket client exemple
