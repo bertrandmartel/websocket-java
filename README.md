@@ -15,8 +15,10 @@ You will find source in ./libwebsocket folder
 
 <b>How to launch Websocket Server ?</b>
 
-``WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT);``<br/>
-``server.start();``
+```
+WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT);
+server.start();
+```
 
 you specify the port in WEBSOCKET_PORT
 
@@ -26,9 +28,10 @@ you specify the port in WEBSOCKET_PORT
 
 Just add a Listener to server object. You have 3 callbacks that will notify you on client connection change and arrival of client messages
 
-``server.addServerEventListener(new IClientEventListener() {``
+```
+server.addServerEventListener(new IClientEventListener() {
 
-			``@Override
+			@Override
 			public void onMessageReceivedFromClient(IWebsocketClient client,
 					String message) {
 				//all your message received from websocket client will be here
@@ -50,7 +53,8 @@ Just add a Listener to server object. You have 3 callbacks that will notify you 
 				// when a websocket client connection close. This will be called (you can dismiss client object)
 				System.out.println("Websocket client has disconnected");
 			}
-		});``
+		});
+```
 
 <hr/>
 
