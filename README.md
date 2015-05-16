@@ -72,10 +72,12 @@ server.setSsl(true); // set SSL to true (default is false)
 Then you set your kestore, trustore, type of these certificates, filepath and passwords : 
 
 ```
-server.setSSLParams(KEYSTORE_DEFAULT_TYPE, TRUSTORE_DEFAULT_TYPE,
-				KEYSTORE_FILE_PATH, TRUSTORE_FILE_PATH, SSL_PROTOCOL,
-				KEYSTORE_PASSWORD, TRUSTORE_PASSWORD);
-
+server.setSSLParams(String KEYSTORE_DEFAULT_TYPE,
+		    StringKEYSTORE_FILE_PATH,
+		    String TRUSTORE_FILE_PATH,
+		    String SSL_PROTOCOL,
+		    StringKEYSTORE_PASSWORD,
+		    StringTRUSTORE_PASSWORD);
 ```
 
 Here is the description of all of these parameters : 
@@ -91,9 +93,7 @@ Here is the description of all of these parameters :
 Eventually add event listener as described above and start websocket server : 
 
 ```
-
 server.start();
-
 ```
 
 <hr/>
