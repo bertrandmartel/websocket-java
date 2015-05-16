@@ -72,7 +72,7 @@ public class WebsocketServer implements IWebsocketServer, IClientEventListener {
 	private String trustorePassword = "";
 
 	/** define server socket object */
-	private static ServerSocket serverSocket;
+	private ServerSocket serverSocket;
 
 	/**
 	 * server event listener
@@ -146,15 +146,14 @@ public class WebsocketServer implements IWebsocketServer, IClientEventListener {
 				System.out.println("Launching SSL Websocket server on port "
 						+ this.port);
 
-				WebsocketServer.serverSocket = sslserversocketfactory
-						.createServerSocket(port);
+				serverSocket = sslserversocketfactory.createServerSocket(port);
 
 			} else {
 
 				System.out.println("Launching Websocket server on port "
 						+ this.port);
 
-				WebsocketServer.serverSocket = new ServerSocket(port);
+				serverSocket = new ServerSocket(port);
 			}
 
 			/*
