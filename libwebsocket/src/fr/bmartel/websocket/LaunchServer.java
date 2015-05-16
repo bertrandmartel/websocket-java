@@ -60,7 +60,8 @@ public class LaunchServer {
 
 		// initiate websocket server
 		WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT);
-
+			
+		/*
 		// set ssl encryption
 		server.setSsl(true);
 
@@ -68,7 +69,8 @@ public class LaunchServer {
 		server.setSSLParams(KEYSTORE_DEFAULT_TYPE, TRUSTORE_DEFAULT_TYPE,
 				KEYSTORE_FILE_PATH, TRUSTORE_FILE_PATH, SSL_PROTOCOL,
 				KEYSTORE_PASSWORD, TRUSTORE_PASSWORD);
-
+		*/
+		
 		server.addServerEventListener(new IClientEventListener() {
 
 			@Override
