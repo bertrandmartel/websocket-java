@@ -28,31 +28,46 @@ import fr.bmartel.protocol.websocket.server.IWebsocketClient;
 import fr.bmartel.protocol.websocket.server.WebsocketServer;
 
 /**
-* @mainpage  Websocket Server / Client implementation in Java
-* 
-* 
-* 
-*/
+ * @mainpage  Websocket Server implementation in Java
+ * 
+ */
 /**
- * Launch a websocket Server on localhost port 4242
+ * Launch a websocket Server on localhost port 8443
  * 
  * @author Bertrand Martel
  *
  */
 public class LaunchServer {
 
-	private static int WEBSOCKET_PORT = 4242;
+	private final static String KEYSTORE_DEFAULT_TYPE = "PKCS12";
+	private final static String TRUSTORE_DEFAULT_TYPE = "JKS";
+	private final static String KEYSTORE_FILE_PATH = "~/websocket-java/certs/server/server.p12";
+	private final static String TRUSTORE_FILE_PATH = "~/websocket-java/certs/ca.jks";
+	private final static String SSL_PROTOCOL = "TLS";
+	private final static String KEYSTORE_PASSWORD = "123456";
+	private final static String TRUSTORE_PASSWORD = "123456";
+
+	private static int WEBSOCKET_PORT = 8443;
 
 	public static void main(String[] args) {
-		
+
 		if (args.length > 0) {
-			// see if arg[0] is int if not choose port 4242
+			// see if arg[0] is int if not choose port 8443
 			if (isInteger(args[0])) {
-				WEBSOCKET_PORT=Integer.parseInt(args[0]);
+				WEBSOCKET_PORT = Integer.parseInt(args[0]);
 			}
 		}
 
-		WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT); // intiate websocket server
+		// initiate websocket server
+		WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT);
+
+		// set ssl encryption
+		server.setSsl(true);
+
+		// set ssl parameters
+		server.setSSLParams(KEYSTORE_DEFAULT_TYPE, TRUSTORE_DEFAULT_TYPE,
+				KEYSTORE_FILE_PATH, TRUSTORE_FILE_PATH, SSL_PROTOCOL,
+				KEYSTORE_PASSWORD, TRUSTORE_PASSWORD);
 
 		server.addServerEventListener(new IClientEventListener() {
 
