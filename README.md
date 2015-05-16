@@ -73,11 +73,11 @@ Then you set your kestore, trustore, type of these certificates, filepath and pa
 
 ```
 server.setSSLParams(String KEYSTORE_DEFAULT_TYPE,
-		    StringKEYSTORE_FILE_PATH,
+		    String KEYSTORE_FILE_PATH,
 		    String TRUSTORE_FILE_PATH,
 		    String SSL_PROTOCOL,
-		    StringKEYSTORE_PASSWORD,
-		    StringTRUSTORE_PASSWORD);
+		    String KEYSTORE_PASSWORD,
+		    String TRUSTORE_PASSWORD);
 ```
 
 Here is the description of all of these parameters : 
