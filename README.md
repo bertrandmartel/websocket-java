@@ -195,13 +195,13 @@ With last release of easy-rsa, you can build your own key with the following :
 
 <b>COMMAND LINE SYNTAX</b> 
 
-The following will open a websocket on port 4242 (default port value for my exemple)
+The following will open a websocket on port 8443 (default port value for my exemple)
 
 ``java -cp ../libs/commons-codec-1.9.jar:../libs/http-endec-1.0.jar:libwebsocket-1.0.jar fr.bmartel.websocket.LaunchServer``
 
 You can change port number by specifying yours
 
-``java -cp ../libs/commons-codec-1.9.jar:../libs/http-endec-1.0.jar:libwebsocket-1.0.jar fr.bmartel.websocket.LaunchServer 4343``
+``java -cp ../libs/commons-codec-1.9.jar:../libs/http-endec-1.0.jar:libwebsocket-1.0.jar fr.bmartel.websocket.LaunchServer 8443``
 
 This exemple is launched from /release folder
 
@@ -209,7 +209,7 @@ This exemple is launched from /release folder
 
 <b>Exemple with Javascript Client</b>
 
-* Launch the websocket server on port 4242
+* Launch the websocket server on port 8443
 * Open the javascript client page in ./exemples/js/ folder
 
 => You have now a complete websocket chat between java server <-> javascript client in websocket 
