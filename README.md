@@ -209,7 +209,7 @@ This exemple is launched from /release folder
 
 <b>Exemple with Javascript Client</b>
 
-* Launch the websocket server on port 8443
+* Launch the websocket server on port 4242
 * Open the javascript client page in ./exemples/js/ folder
 
 => You have now a complete websocket chat between java server <-> javascript client in websocket 
