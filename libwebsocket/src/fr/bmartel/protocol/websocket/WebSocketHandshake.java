@@ -7,14 +7,13 @@ import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Base64;
 
-import fr.bmartel.protocol.http.impl.HttpHeader;
-import fr.bmartel.protocol.http.impl.HttpMethod;
-import fr.bmartel.protocol.http.impl.HttpRequestFrame;
-import fr.bmartel.protocol.http.impl.HttpResponseFrame;
-import fr.bmartel.protocol.http.impl.HttpVersion;
-import fr.bmartel.protocol.http.impl.MediaType;
-import fr.bmartel.protocol.http.impl.StatusCodeList;
-import fr.bmartel.protocol.http.impl.StatusCodeObject;
+import fr.bmartel.protocol.http.HttpFrame;
+import fr.bmartel.protocol.http.HttpResponseFrame;
+import fr.bmartel.protocol.http.HttpVersion;
+import fr.bmartel.protocol.http.StatusCodeObject;
+import fr.bmartel.protocol.http.constants.HttpHeader;
+import fr.bmartel.protocol.http.constants.MediaType;
+import fr.bmartel.protocol.http.constants.StatusCodeList;
 import fr.bmartel.protocol.websocket.constants.WebSocketHeader;
 
 /**
@@ -51,7 +50,7 @@ public class WebSocketHandshake {
 		headers.put(HttpHeader.CONNECTION, "Upgrade");
 		headers.put(WebSocketHeader.SEC_WEBSOCKET_ACCEPT, key);
 		HttpResponseFrame httpFrame = new HttpResponseFrame(returnCode,
-				version, headers, "");
+				version, headers, new byte[] {});
 		return httpFrame.toString();
 	}
 
@@ -72,8 +71,9 @@ public class WebSocketHandshake {
 		headers.put(HttpHeader.UPGRADE, "websocket");
 		headers.put(HttpHeader.CONNECTION, "Upgrade");
 		headers.put(WebSocketHeader.SC_WEBSOCKET_KEY, key);
+
 		HttpResponseFrame httpFrame = new HttpResponseFrame(returnCode,
-				version, headers, HttpMethod.GET_REQUEST);
+				version, headers, new byte[] {});
 		return httpFrame.toString();
 	}
 
@@ -85,8 +85,7 @@ public class WebSocketHandshake {
 	 * @return http handshake request to be sent to browser
 	 * @throws UnsupportedEncodingException
 	 */
-	public static String writeWebSocketHandShake(
-			HttpRequestFrame httpFrameParser)
+	public static String writeWebSocketHandShake(HttpFrame httpFrameParser)
 			throws UnsupportedEncodingException {
 
 		/* build response according to Websocket protocol */
@@ -105,7 +104,8 @@ public class WebSocketHandshake {
 		byte[] dig1 = new byte[20];
 
 		dig1 = md.digest(keysConcat.getBytes("iso-8859-1"));
-		String websocketclientNonce = new String(Base64.encodeBase64(dig1),"UTF-8");
+		String websocketclientNonce = new String(Base64.encodeBase64(dig1),
+				"UTF-8");
 
 		/* send response for websocket handshake */
 		return WebSocketHandshake
@@ -135,7 +135,8 @@ public class WebSocketHandshake {
 
 		dig1 = md.digest(keysConcat.getBytes("iso-8859-1"));
 
-		String websocketclientNonce = new String(Base64.encodeBase64(dig1),"UTF-8");
+		String websocketclientNonce = new String(Base64.encodeBase64(dig1),
+				"UTF-8");
 
 		return websocketclientNonce;
 	}
