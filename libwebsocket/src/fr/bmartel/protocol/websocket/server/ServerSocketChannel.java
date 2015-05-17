@@ -30,10 +30,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.SocketException;
 
-import fr.bmartel.protocol.http.impl.HttpConstants;
-import fr.bmartel.protocol.http.impl.HttpHeader;
-import fr.bmartel.protocol.http.impl.HttpRequestFrame;
-import fr.bmartel.protocol.http.impl.StatusCodeList;
+import fr.bmartel.protocol.http.HttpFrame;
+import fr.bmartel.protocol.http.constants.HttpConstants;
+import fr.bmartel.protocol.http.constants.HttpHeader;
+import fr.bmartel.protocol.http.states.HttpStates;
 import fr.bmartel.protocol.websocket.WebSocketChannel;
 import fr.bmartel.protocol.websocket.WebSocketHandshake;
 import fr.bmartel.protocol.websocket.listeners.IClientEventListener;
@@ -44,7 +44,7 @@ import fr.bmartel.protocol.websocket.listeners.IClientEventListener;
  * @author Bertrand Martel
  */
 public class ServerSocketChannel implements Runnable, IWebsocketClient {
-	
+
 	/** websocket decoder / encoder object */
 	private WebSocketChannel websocketChannel = null;
 
@@ -58,7 +58,7 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 	private OutputStream outputStream;
 
 	/** http request parser */
-	private HttpRequestFrame httpFrameParser;
+	private HttpFrame httpFrameParser;
 
 	private IClientEventListener clientListener = null;
 
@@ -87,7 +87,7 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 			 * initialize parsing method for request string and different body
 			 * of http request
 			 */
-			this.httpFrameParser = new HttpRequestFrame();
+			this.httpFrameParser = new HttpFrame();
 			/*
 			 * intialize response manager for writing data to outputstream
 			 * method (headers generation ...)
@@ -124,7 +124,7 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 		try {
 			do {
 				/* clear richRequest object (specially headers) */
-				this.httpFrameParser = new HttpRequestFrame();
+				this.httpFrameParser = new HttpFrame();
 
 				/*
 				 * define loop if websocket has been enables by client and
@@ -132,16 +132,21 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 				 */
 				if (websocket == false) {
 
-					int requestLine = this.httpFrameParser
+					HttpStates httpStatus = this.httpFrameParser
 							.parseHttp(inputStream);
 
-					if (requestLine == 200) {
+					if (httpStatus == HttpStates.HTTP_FRAME_OK) {
 
 						/* retrieve uri */
 						final String uri = this.httpFrameParser.getUri();
-						
+
 						/* check if Connection: Upgrade is present in header map */
-						if (this.httpFrameParser.getHeaders().containsKey(HttpHeader.CONNECTION.toLowerCase())&& this.httpFrameParser.getHeaders().containsKey(HttpHeader.UPGRADE.toLowerCase())) {
+						if (this.httpFrameParser.getHeaders().containsKey(
+								HttpHeader.CONNECTION.toLowerCase())
+								&& this.httpFrameParser.getHeaders()
+										.containsKey(
+												HttpHeader.UPGRADE
+														.toLowerCase())) {
 							if (this.httpFrameParser.getHeaders()
 									.get(HttpHeader.CONNECTION.toLowerCase())
 									.toLowerCase().indexOf("upgrade") != -1
@@ -158,18 +163,14 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 								notifyConnectionSuccess();
 								this.websocket = true;
 							}
-						} else if (uri.startsWith("/")) {
-							System.out.println("API dispatcher ");
+						} else if (httpStatus == HttpStates.MALFORMED_HTTP_FRAME) {
 
-						} else if (requestLine == 400) {
 							writeToSocket(HttpConstants.BAD_REQUEST_ERROR
 									.getBytes("UTF-8"));
-							System.out.println("ERROR : => "
-									+ StatusCodeList.BAD_REQUEST.code + " "
-									+ StatusCodeList.BAD_REQUEST.reasonPhrase);
+
 						} else {
-							
-							websocket=false;
+
+							websocket = false;
 							closeSocket();
 							return;
 						}
@@ -177,27 +178,25 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 				} else {
 
 					/* read something on websocket stream */
-					String messageRead = this.websocketChannel.decapsulateMessage(this.inputStream);
-					
+					String messageRead = this.websocketChannel
+							.decapsulateMessage(this.inputStream);
+
 					if (clientListener != null && messageRead != null) {
 						clientListener.onMessageReceivedFromClient(this,
 								messageRead);
 					}
 
 					if (messageRead == null) {
-						websocket=false;
+						websocket = false;
 						closeSocket();
 						return;
 					}
-					
+
 				}
 			} while (websocket == true);
 			closeSocket();
-		} 
-		catch (SocketException e)
-		{
-		}
-		catch (Exception e) {
+		} catch (SocketException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO : redirect ?
 		}
@@ -216,7 +215,7 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 	 * @throws IOException
 	 */
 	private void upgradeWebsocketProtocol(OutputStream out,
-			HttpRequestFrame httpFrameParser, ServerSocketChannel serverThread)
+			HttpFrame httpFrameParser, ServerSocketChannel serverThread)
 			throws UnsupportedEncodingException, IOException {
 
 		/* write websocket handshake to client */
@@ -252,8 +251,7 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 		this.outputStream.close();
 	}
 
-	private void closeSocket()
-	{
+	private void closeSocket() {
 		try {
 			closeInputStream();
 			closeOutputStream();
@@ -262,30 +260,29 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public int close() {
 		System.out.println("closing ....");
-		
+
 		websocket = false;
 		closeSocket();
-		
+
 		if (clientListener != null) {
 			clientListener.onClientClose(this);
 		}
-		
+
 		return 0;
 	}
 
 	@Override
 	public int sendMessage(String message) {
-		if (outputStream!=null)
-		{
+		if (outputStream != null) {
 			try {
 				websocketChannel.encapsulateMessage(message, outputStream);
 				return 0;
 			} catch (IOException | InterruptedException e) {
-				//e.printStackTrace();
+				// e.printStackTrace();
 			}
 		}
 		return -1;

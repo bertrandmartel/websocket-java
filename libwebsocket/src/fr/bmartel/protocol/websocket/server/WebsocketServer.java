@@ -144,14 +144,14 @@ public class WebsocketServer implements IWebsocketServer, IClientEventListener {
 						.getServerSocketFactory();
 
 				System.out.println("Launching SSL Websocket server on port "
-						+ this.port);
+						+ this.port + " ssl OK");
 
 				serverSocket = sslserversocketfactory.createServerSocket(port);
 
 			} else {
 
 				System.out.println("Launching Websocket server on port "
-						+ this.port);
+						+ this.port + " no ssl");
 
 				serverSocket = new ServerSocket(port);
 			}
@@ -164,6 +164,7 @@ public class WebsocketServer implements IWebsocketServer, IClientEventListener {
 				Socket newSocketConnection = serverSocket.accept();
 
 				newSocketConnection.setKeepAlive(true);
+
 				ServerSocketChannel server = new ServerSocketChannel(
 						newSocketConnection, this);
 				Thread newSocket = new Thread(server);

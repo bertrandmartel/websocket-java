@@ -23,6 +23,7 @@
  */
 package fr.bmartel.websocket;
 
+import fr.bmartel.protocol.http.utils.StringUtils;
 import fr.bmartel.protocol.websocket.listeners.IClientEventListener;
 import fr.bmartel.protocol.websocket.server.IWebsocketClient;
 import fr.bmartel.protocol.websocket.server.WebsocketServer;
@@ -53,24 +54,22 @@ public class LaunchServer {
 
 		if (args.length > 0) {
 			// see if arg[0] is int if not choose port 8443
-			if (isInteger(args[0])) {
+			if (StringUtils.isInteger(args[0])) {
 				WEBSOCKET_PORT = Integer.parseInt(args[0]);
 			}
 		}
 
 		// initiate websocket server
 		WebsocketServer server = new WebsocketServer(WEBSOCKET_PORT);
-			
-		/*
-		// set ssl encryption
-		server.setSsl(true);
 
-		// set ssl parameters
-		server.setSSLParams(KEYSTORE_DEFAULT_TYPE, TRUSTORE_DEFAULT_TYPE,
-				KEYSTORE_FILE_PATH, TRUSTORE_FILE_PATH, SSL_PROTOCOL,
-				KEYSTORE_PASSWORD, TRUSTORE_PASSWORD);
-		*/
-		
+		/*
+		 * // set ssl encryption server.setSsl(true);
+		 * 
+		 * // set ssl parameters server.setSSLParams(KEYSTORE_DEFAULT_TYPE,
+		 * TRUSTORE_DEFAULT_TYPE, KEYSTORE_FILE_PATH, TRUSTORE_FILE_PATH,
+		 * SSL_PROTOCOL, KEYSTORE_PASSWORD, TRUSTORE_PASSWORD);
+		 */
+
 		server.addServerEventListener(new IClientEventListener() {
 
 			@Override
@@ -102,29 +101,5 @@ public class LaunchServer {
 		server.start(); // start Websocket server => this method will block
 
 		// server.closeServer(); //close websocket server
-	}
-
-	public static boolean isInteger(String str) {
-		if (str == null) {
-			return false;
-		}
-		int length = str.length();
-		if (length == 0) {
-			return false;
-		}
-		int i = 0;
-		if (str.charAt(0) == '-') {
-			if (length == 1) {
-				return false;
-			}
-			i = 1;
-		}
-		for (; i < length; i++) {
-			char c = str.charAt(i);
-			if (c <= '/' || c >= ':') {
-				return false;
-			}
-		}
-		return true;
 	}
 }
