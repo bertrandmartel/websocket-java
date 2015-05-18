@@ -137,9 +137,6 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 
 					if (httpStatus == HttpStates.HTTP_FRAME_OK) {
 
-						/* retrieve uri */
-						final String uri = this.httpFrameParser.getUri();
-
 						/* check if Connection: Upgrade is present in header map */
 						if (this.httpFrameParser.getHeaders().containsKey(
 								HttpHeader.CONNECTION.toLowerCase())
@@ -178,8 +175,18 @@ public class ServerSocketChannel implements Runnable, IWebsocketClient {
 				} else {
 
 					/* read something on websocket stream */
-					String messageRead = this.websocketChannel
+					byte[] data = this.websocketChannel
 							.decapsulateMessage(this.inputStream);
+
+					String messageRead = "";
+
+					if (data != null) {
+						messageRead = new String(data);
+					} else {
+						websocket = false;
+						closeSocket();
+						return;
+					}
 
 					if (clientListener != null && messageRead != null) {
 						clientListener.onMessageReceivedFromClient(this,
