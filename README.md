@@ -2,7 +2,7 @@
 
 http://akinaru.github.io/websocket-java/
 
-Websocket Server implementation
+Websocket Server/Client implementation
 
 This project uses HTTP endec project : http://akinaru.github.io/http-endec-java/
 
