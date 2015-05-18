@@ -272,6 +272,17 @@ This exemple is launched from /release folder
 
 
 ![server side](https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/serverSide.png)
+
+
+<b>Exemple with Java websocket client <-> Java websocket server</b>
+
+* Launch the LaunchClient main class from folder libwebsocket in fr.bmartel.network package
+
+This will launch one websocket server on 127.0.0.1:8443 and connect a websocket client to it.
+You will be able to send message to the server via websocket and server will answer you back :
+
+![wesocket client exemple](https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/websocket_client.png)
+
 <hr/>
 
 * Project is JRE 1.7 compliant
