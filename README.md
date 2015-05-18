@@ -1,4 +1,4 @@
-# Websocket Java Server implementation #
+# Websocket Java Server/Client implementation #
 
 http://akinaru.github.io/websocket-java/
 
