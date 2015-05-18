@@ -100,6 +100,60 @@ server.start();
 
 <hr/>
 
+<b>How to connect a websocket client to server ?</b>
+
+new instance of websocket client to connect to server on HOSTNAME:PORT : 
+
+```
+WebsocketClient clientSocket = new WebsocketClient(HOSTNAME, PORT);
+
+clientSocket.connect();
+```
+
+You can monitor all your event in your websocket client adding a websocket client event listener like this :
+
+```
+clientSocket.addClientSocketEventListener(new IWebsocketClientEventListener() {
+
+					@Override
+					public void onSocketConnected() {
+						System.out.println("[CLIENT] Websocket client successfully connected");
+					}
+
+					@Override
+					public void onSocketClosed() {
+						System.out.println("[CLIENT] Websocket client disconnected");
+					}
+
+					@Override
+					public void onIncomingMessageReceived(byte[] data,
+							IWebsocketClientChannel channel) {
+						System.out.println("[CLIENT] Received message from server : "+ new String(data));
+					}
+				});
+```
+* onSocketConnected() : happened when websocket client successfully connect to server
+* onSocketClosed()    : happened when websocket client disconnect from server
+* onIncomingMessageReceived(byte[] data,IWebsocketClientChannel channel) : happen when incoming data arrives from server. You can write a response directly via IWebsocketClientChannel object with ``writeMessage(String message)`` method
+
+Websocket client can be enabled with SSL :
+
+
+```
+// set SSL encryption
+clientSocket.setSsl(true);
+
+// set ssl parameters
+
+clientSocket.setSSLParams(KEYSTORE_DEFAULT_TYPE, TRUSTORE_DEFAULT_TYPE,
+		CLIENT_KEYSTORE_FILE_PATH, CLIENT_TRUSTORE_FILE_PATH,
+		SSL_PROTOCOL, KEYSTORE_PASSWORD, TRUSTORE_PASSWORD);
+
+```
+exactly the same as websocket server
+
+<hr/>
+
 <b>Keystore : public and private server certificates</b>
 
 * To convert cert and key certs to p12 : 
