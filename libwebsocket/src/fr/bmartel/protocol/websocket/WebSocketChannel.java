@@ -57,7 +57,8 @@ public class WebSocketChannel {
 	 * @return string data to be read
 	 * @throws IOException
 	 */
-	public String decapsulateMessage(InputStream in) throws IOException,SocketException {
+	public byte[] decapsulateMessage(InputStream in) throws IOException,
+			SocketException {
 		/* initialize state machine */
 		int currentState = WebSocketStates.NONE;
 		int sizeCounter = 0;
@@ -168,21 +169,17 @@ public class WebSocketChannel {
 						break;
 					}
 				case WebSocketStates.FINISHED_LOADING:
-					String data = "";
+					byte[] data = new byte[] {};
 					if (message.getMASK() == 0x01) {
-						data = new String(unmask(message.payloadData,
-								message.maskKey));
+						data = unmask(message.payloadData, message.maskKey);
 					} else {
-						data = new String(message.payloadData);
+						data = message.payloadData;
 					}
 					return data;
 				}
-		} 
-		catch (SocketException e)
-		{
-			
-		}
-		catch (Exception e) {
+		} catch (SocketException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -224,7 +221,7 @@ public class WebSocketChannel {
 	 * @throws InterruptedException
 	 */
 	public void encapsulateMessage(String message, OutputStream out)
-			throws IOException, InterruptedException,SocketException {
+			throws IOException, InterruptedException, SocketException {
 
 		WebSocketMessage websocketMessage = new WebSocketMessage(1, 0,
 				WebSocketOpcode.TEXT_FRAME.frameTypeValue, 0, null,

@@ -14,6 +14,7 @@ import fr.bmartel.protocol.http.StatusCodeObject;
 import fr.bmartel.protocol.http.constants.HttpHeader;
 import fr.bmartel.protocol.http.constants.MediaType;
 import fr.bmartel.protocol.http.constants.StatusCodeList;
+import fr.bmartel.protocol.http.states.HttpStates;
 import fr.bmartel.protocol.websocket.constants.WebSocketHeader;
 
 /**
@@ -139,6 +140,37 @@ public class WebSocketHandshake {
 				"UTF-8");
 
 		return websocketclientNonce;
+	}
+
+	/**
+	 * Determine if handshake response received from server is valid or not
+	 * 
+	 * @param frame
+	 *            http frame received from server
+	 * @param expectedKey
+	 *            key we expect to find
+	 * @return
+	 */
+	public static boolean isValidHandshakeResponse(HttpFrame frame,
+			HttpStates httpStates, String expectedKey) {
+
+		if (httpStates == HttpStates.HTTP_FRAME_OK
+				&& frame.getHeaders().containsKey(
+						HttpHeader.CONNECTION.toLowerCase())
+				&& frame.getHeaders().containsKey(
+						HttpHeader.UPGRADE.toLowerCase())) {
+
+			if (frame.getHeaders().get(HttpHeader.CONNECTION.toLowerCase())
+					.toLowerCase().indexOf("upgrade") != -1
+					&& frame.getHeaders().get(HttpHeader.UPGRADE.toLowerCase())
+							.toLowerCase().indexOf("websocket") != -1
+					&& frame.getHeaders()
+							.get(HttpHeader.WEB_SOCKET_ACCEPT.toLowerCase())
+							.toLowerCase().equals(expectedKey.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

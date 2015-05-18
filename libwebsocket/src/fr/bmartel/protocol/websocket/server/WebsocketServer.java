@@ -74,6 +74,8 @@ public class WebsocketServer implements IWebsocketServer, IClientEventListener {
 	/** define server socket object */
 	private ServerSocket serverSocket;
 
+	private boolean isServerClosed = false;
+
 	/**
 	 * server event listener
 	 */
@@ -173,7 +175,7 @@ public class WebsocketServer implements IWebsocketServer, IClientEventListener {
 			/* close server socket safely */
 			serverSocket.close();
 		} catch (SocketException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			/* stop all thread and server socket */
 			stop();
 		} catch (IOException e) {
@@ -231,11 +233,18 @@ public class WebsocketServer implements IWebsocketServer, IClientEventListener {
 	 * Stop server socket and stop running thread
 	 */
 	private void stop() {
-		/* close socket connection */
-		closeServerSocket();
-		/* disable loop */
 		running = false;
-		System.out.println("Stopping server socket");
+
+		if (!isServerClosed) {
+
+			isServerClosed = true;
+
+			/* close socket connection */
+			closeServerSocket();
+			/* disable loop */
+
+			System.out.println("Stopping server socket");
+		}
 	}
 
 	/** Stop server socket */
