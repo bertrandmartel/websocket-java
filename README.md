@@ -1,10 +1,10 @@
 # Websocket Java Server/Client implementation #
 
-http://akinaru.github.io/websocket-java/
+http://bertrandmartel.github.io/websocket-java/
 
 Websocket Server/Client implementation
 
-This project uses HTTP endec project : http://akinaru.github.io/http-endec-java/
+This project uses HTTP endec project : http://bertrandmartel.github.io/http-endec-java/
 
 <i>Last update 16/05/2015</i>
 
@@ -268,10 +268,10 @@ This exemple is launched from /release folder
 
 => You have now a complete websocket chat between java server <-> javascript client in websocket 
 
-![client side](https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/clientSide.png)
+![client side](https://raw.github.com/bertrandmartel/websocket-java/master/exemples/readme_images/clientSide.png)
 
 
-![server side](https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/serverSide.png)
+![server side](https://raw.github.com/bertrandmartel/websocket-java/master/exemples/readme_images/serverSide.png)
 
 
 <b>Exemple with Java websocket client <-> Java websocket server</b>
@@ -281,7 +281,7 @@ This exemple is launched from /release folder
 This will launch one websocket server on 127.0.0.1:8443 and connect a websocket client to it.
 You will be able to send message to the server via websocket and server will answer you back :
 
-![wesocket client exemple](https://raw.github.com/akinaru/websocket-java/master/exemples/readme_images/websocket_client.png)
+![wesocket client exemple](https://raw.github.com/bertrandmartel/websocket-java/master/exemples/readme_images/websocket_client.png)
 
 <hr/>
 
